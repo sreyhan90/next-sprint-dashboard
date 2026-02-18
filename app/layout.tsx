@@ -1,17 +1,19 @@
+import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Next Auth Dashboard",
-  description:
-    "Next.js App Router mini product: auth + dashboard + users list/detail",
+  description: "Auth + Protected Dashboard + Users",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="tr">
-      <body style={{ margin: 0, fontFamily: "system-ui, sans-serif" }}>
+      <body className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
         {children}
       </body>
     </html>
