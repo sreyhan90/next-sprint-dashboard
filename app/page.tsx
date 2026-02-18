@@ -2,29 +2,30 @@ import Link from "next/link";
 
 export default function LandingPage() {
   return (
-    <main style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>
-      <h1 style={{ margin: "0 0 8px" }}>Next Auth Dashboard</h1>
-      <p style={{ margin: "0 0 16px", opacity: 0.8 }}>
-        Sprint deliverable: Auth + Protected Dashboard + Users List/Detail (App
-        Router).
-      </p>
+    <main className="flex min-h-screen items-center justify-center px-6">
+      <div className="w-full max-w-2xl rounded-xl bg-[var(--color-surface)] p-8 shadow-lg">
+        <h1 className="mb-4 text-3xl font-bold">Next.js Auth Dashboard</h1>
 
-      <div style={{ display: "flex", gap: 12 }}>
-        <Link href="/login">Go to Login</Link>
-        <Link href="/dashboard">Go to Dashboard</Link>
+        <p className="mb-6 text-sm opacity-70">
+          App Router + Server Components + Middleware + Auth
+        </p>
+
+        <div className="flex gap-4">
+          <Link
+            href="/login"
+            className="rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-medium hover:opacity-90"
+          >
+            Login
+          </Link>
+
+          <Link
+            href="/dashboard"
+            className="rounded-md border border-white/20 px-4 py-2 text-sm hover:bg-white/5"
+          >
+            Dashboard
+          </Link>
+        </div>
       </div>
-
-      <hr style={{ margin: "20px 0" }} />
-
-      <section>
-        <h2 style={{ margin: "0 0 8px" }}>Demo Flow (placeholder)</h2>
-        <ol style={{ margin: 0, paddingLeft: 18 }}>
-          <li>Open /login</li>
-          <li>Login with demo credentials (to be implemented)</li>
-          <li>Navigate to /dashboard/users</li>
-          <li>Open a user detail</li>
-        </ol>
-      </section>
     </main>
   );
 }
