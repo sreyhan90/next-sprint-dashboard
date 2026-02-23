@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LogoutButton from "./LogoutButton";
 
 export default function DashboardHomePage() {
   return (
@@ -11,6 +12,7 @@ export default function DashboardHomePage() {
       <div style={{ display: "flex", gap: 12 }}>
         <Link href="/dashboard/users">Users</Link>
         <Link href="/">Landing</Link>
+        <LogoutButton />
       </div>
     </main>
   );
