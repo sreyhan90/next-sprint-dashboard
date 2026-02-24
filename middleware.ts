@@ -27,10 +27,12 @@ export function middleware(req: NextRequest) {
     url.search = "";
     return NextResponse.redirect(url);
   }
+  const isLogout = pathname.startsWith("/logout");
+  if (isLogout) return NextResponse.next();
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/login", "/logout"],
 };
