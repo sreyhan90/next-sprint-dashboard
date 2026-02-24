@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFormState } from "react-dom";
+import  { useActionState, startTransition } from "react";
 import { loginAction, type LoginActionState } from "./actions";
 
 const loginSchema = z.object({
@@ -17,7 +16,10 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const initialState: LoginActionState = { ok: false, message: "" };
 
 export default function LoginPage() {
-  const [state, formAction] = useFormState(loginAction, initialState);
+  const [state, formAction, isPending] = useActionState(
+    loginAction,
+    initialState,
+  );
 
   const {
     register,
@@ -34,7 +36,9 @@ export default function LoginPage() {
     const fd = new FormData();
     fd.set("username", values.username);
     fd.set("password", values.password);
-    formAction(fd);
+    startTransition(() => {
+      formAction(fd);
+    });
   }
 
   return (
@@ -52,18 +56,7 @@ export default function LoginPage() {
           </div>
         ) : null}
 
-        <form
-          action={(fd) => {
-            // action attribute'u kullanıyoruz, ama önce RHF validation:
-            // formData'dan values çekmek yerine RHF submit ile ilerliyoruz.
-            // Bu yüzden form submit’i engelleyip handleSubmit kullanacağız.
-          }}
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(onValidSubmit)();
-          }}
-          className="space-y-4"
-        >
+        <form onSubmit={handleSubmit(onValidSubmit)} className="space-y-4">
           <div>
             <label className="mb-1 block text-sm opacity-80">Username</label>
             <input
@@ -93,10 +86,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isPending}
             className="w-full rounded-md bg-[var(--color-primary)] py-2 text-sm font-medium hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSubmitting ? "Signing in..." : "Login"}
+            {isSubmitting || isPending ? "Signing in..." : "Login"}
           </button>
         </form>
       </div>
