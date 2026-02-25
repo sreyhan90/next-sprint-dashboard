@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { setSession } from "../lib/auth";
+import { setSession } from "../lib/auth/authActions";
 
 const loginSchema = z.object({
   username: z.string().min(3),
@@ -28,6 +28,6 @@ export async function loginAction(
     return { ok: false, message: "Kullanıcı adı veya şifre hatalı." };
   }
 
-  setSession("demo-token");
+  await setSession("demo-token");
   redirect("/dashboard");
 }

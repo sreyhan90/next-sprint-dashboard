@@ -1,19 +1,16 @@
-import Link from "next/link";
-import LogoutButton from "./LogoutButton";
+import { redirect } from "next/navigation";
+import { getSession } from "../lib/auth/auth";
 
-export default function DashboardHomePage() {
+export default async function DashboardHomePage() {
+  const session = await getSession();
+  if (!session) redirect("/login");
+
   return (
-    <main style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>
-      <h1 style={{ margin: "0 0 8px" }}>Dashboard</h1>
-      <p style={{ margin: "0 0 16px", opacity: 0.8 }}>
-        This will become a protected area (middleware + server check) in NX-05.
+    <div>
+      <h1 className="text-2xl font-semibold">Overview</h1>
+      <p className="mt-2 text-sm opacity-70">
+        Welcome back. Premium dashboard layout activated.
       </p>
-
-      <div style={{ display: "flex", gap: 12 }}>
-        <Link href="/dashboard/users">Users</Link>
-        <Link href="/">Landing</Link>
-        <LogoutButton />
-      </div>
-    </main>
+    </div>
   );
 }
