@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { setSession } from "../lib/auth";
+import { setSession } from "../lib/auth/authActions";
 
 const loginSchema = z.object({
   username: z.string().min(3),
